@@ -1,0 +1,453 @@
+/* ============================================================
+   NAVRAI BEAUTY SALON — Hyper-Luxury Design System
+   Glassmorphism, Advanced Animations, Premium Typography
+   ============================================================ */
+
+:root {
+  /* Brand Colors - Luxury */
+  --obsidian: #0a0508;
+  --charcoal: #140d12;
+  --surface: #1f141a;
+  
+  --gold-primary: #D4AF37;
+  --gold-light: #F3E5AB;
+  --gold-dark: #996515;
+  
+  --rose-gold: #B76E79;
+  --rose-light: #E0BFB8;
+  
+  --champagne: #F7E7CE;
+  --diamond: #FFFFFF;
+  
+  --text-main: #E8E8E8;
+  --text-muted: #A0989B;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--obsidian);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+/* ===================================
+   CUSTOM SCROLLBAR
+   =================================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-primary), var(--rose-gold));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--gold-light), var(--champagne));
+}
+::selection {
+  background: rgba(212, 175, 55, 0.35);
+  color: var(--diamond);
+}
+
+/* ===================================
+   BACKGROUND LAYERS & ANIMATIONS
+   =================================== */
+.bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-gradient-anim {
+  background: radial-gradient(ellipse at 15% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 45%), 
+              radial-gradient(ellipse at 85% 15%, rgba(183, 110, 121, 0.08) 0%, transparent 45%), 
+              radial-gradient(ellipse at 50% 85%, rgba(247, 231, 206, 0.05) 0%, transparent 50%);
+  animation: bgShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes bgShift {
+  0% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.1) translate(-2%,2%); }
+  100% { transform: scale(1) translate(2%,-2%); }
+}
+
+.light-rays {
+  background: conic-gradient(from 180deg at 50% 50%, 
+              transparent 0deg, 
+              rgba(212, 175, 55, 0.03) 50deg, 
+              transparent 100deg, 
+              rgba(183, 110, 121, 0.03) 160deg, 
+              transparent 220deg, 
+              rgba(247, 231, 206, 0.02) 280deg, 
+              transparent 340deg);
+  animation: rayRotate 60s linear infinite;
+}
+
+@keyframes rayRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.luxury-noise {
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 175, 55, 0.06), transparent 60%);
+}
+
+/* ===================================
+   GLASSMORPHISM & UI ELEMENTS
+   =================================== */
+.glass-luxury {
+  background: rgba(20, 13, 18, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.glass-strong {
+  background: rgba(10, 5, 8, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.luxury-corners {
+  position: relative;
+}
+
+.luxury-corners::before, .luxury-corners::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--gold-primary);
+  opacity: 0.6;
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.luxury-corners::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.luxury-corners::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.luxury-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: transparent;
+  color: var(--gold-primary);
+}
+
+.luxury-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+  transform: translateY(-2px);
+  color: var(--gold-light);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05em;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -12px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+.section-title.left::after {
+  left: 0;
+  transform: none;
+  background: linear-gradient(90deg, var(--gold-primary), transparent);
+}
+
+/* ===================================
+   3D PROFILE / HOVER CARDS
+   =================================== */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.hover-glow {
+  transition: all 0.5s ease;
+}
+
+.hover-glow:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.portrait-frame {
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 8px;
+  background: rgba(212, 175, 55, 0.03);
+}
+
+.portrait-frame::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  pointer-events: none;
+  animation: pulseGold 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseGold {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.03); }
+}
+
+/* ===================================
+   LOADING SCREEN
+   =================================== */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--obsidian);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 2px;
+  background: rgba(212, 175, 55, 0.15);
+  position: relative;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rose-gold), var(--gold-primary), var(--champagne));
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ===================================
+   SCROLL PROGRESS BAR
+   =================================== */
+#progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 9999;
+  background: rgba(255,255,255,0.05);
+}
+
+#progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--rose-gold), var(--gold-primary));
+}
+
+/* ===================================
+   SCROLL REVEAL ANIMATIONS
+   =================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ===================================
+   COMPONENTS (Gallery, Form, FAQ)
+   =================================== */
+/* Form styling */
+.luxury-input {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: var(--text-main);
+  transition: all 0.3s ease;
+}
+
+.luxury-input:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  background: rgba(0,0,0,0.6);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+.luxury-input::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+/* FAQ */
+.accordion-header {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.accordion-header:hover {
+  color: var(--gold-light);
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-item.active .accordion-body {
+  max-height: 500px; /* arbitrary large value */
+}
+
+.accordion-icon {
+  transition: transform 0.4s ease;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 5, 8, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 40px rgba(0,0,0,0.8);
+  transform: scale(0.95);
+  transition: transform 0.5s ease;
+}
+
+.lightbox.active .lightbox-img {
+  transform: scale(1);
+}
+
+/* Image Placeholders */
+.img-placeholder {
+  background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(183,110,121,0.05) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(212,175,55,0.5);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px dashed rgba(212,175,55,0.2);
+}
+
+/* WhatsApp Float */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  width: 56px;
+  height: 56px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  z-index: 900;
+  transition: all 0.4s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+}

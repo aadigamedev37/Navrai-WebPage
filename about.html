@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navrai Beauty Salon | The Navrai Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'playfair': ['"Playfair Display"', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#0a0508',
+                        gold: { primary: '#D4AF37', light: '#F3E5AB', dark: '#996515' },
+                        rosegold: '#B76E79',
+                        champagne: '#F7E7CE'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-obsidian text-[#E8E8E8]">
+    <div class="bg-layer bg-gradient-anim"></div>
+    <div class="bg-layer light-rays"></div>
+    <div class="bg-layer luxury-noise"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="spotlight" id="spotlight"></div>
+    <div id="progress-container"><div id="progress-fill"></div></div>
+    
+    <div class="loading-screen" id="loading-screen">
+        <div class="font-playfair text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosegold via-gold-primary to-champagne tracking-widest mb-8 uppercase text-center">Navrai Luxury</div>
+        <div id="boot-sequence" class="text-left w-full max-w-md mx-auto mb-8 min-h-[120px] flex flex-col justify-end"></div>
+        <div class="loading-bar"><div class="loading-bar-fill" id="loading-bar-fill"></div></div>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 border border-gold-primary/40 flex items-center justify-center bg-gold-primary/5 group-hover:border-gold-primary transition-colors">
+                        <span class="font-playfair text-gold-primary text-xl italic">N</span>
+                    </div>
+                    <span class="font-playfair text-xl tracking-widest text-white hidden sm:block uppercase">Navrai</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-2">
+                    <a href="index.html" class="px-4 py-2 text-sm font-inter text-white/70 hover:text-gold-primary transition-colors uppercase tracking-widest">Home</a>
+                    <a href="about.html" class="px-4 py-2 text-sm font-inter text-gold-primary hover:text-gold-primary transition-colors uppercase tracking-widest">About</a>
+                    <a href="services.html" class="px-4 py-2 text-sm font-inter text-white/70 hover:text-gold-primary transition-colors uppercase tracking-widest">Services</a>
+                    <a href="gallery.html" class="px-4 py-2 text-sm font-inter text-white/70 hover:text-gold-primary transition-colors uppercase tracking-widest">Gallery</a>
+                    <a href="contact.html" class="ml-4 px-6 py-2.5 text-xs font-inter border border-gold-primary/40 text-gold-primary hover:bg-gold-primary/10 transition-all uppercase tracking-widest">Book Now</a>
+                </div>
+                <button class="md:hidden text-white hover:text-gold-primary transition-colors" id="mobile-menu-btn">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="fixed inset-y-0 right-0 w-72 glass-strong z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col" id="mobile-menu">
+        <div class="p-6">
+            <button class="absolute top-6 right-6 text-white/60 hover:text-gold-primary" id="mobile-menu-close">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <div class="mt-20 space-y-6 flex flex-col">
+                <a href="index.html" class="text-xl font-playfair text-white/70 hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">Home</a>
+                <a href="about.html" class="text-xl font-playfair text-gold-primary hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">About</a>
+                <a href="services.html" class="text-xl font-playfair text-white/70 hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">Services</a>
+                <a href="gallery.html" class="text-xl font-playfair text-white/70 hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">Gallery</a>
+                <a href="contact.html" class="text-xl font-playfair text-gold-primary uppercase tracking-widest border-b border-gold-primary/20 pb-4">Book Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSERT YOUR CONTENT HERE -->
+    <main class="relative z-10">
+        <!-- Page Header -->
+        <section class="pt-40 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center reveal">
+            <h1 class="font-playfair text-5xl md:text-7xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-champagne via-gold-primary to-rosegold">The Navrai Story</h1>
+            <div class="font-inter text-sm tracking-[0.2em] text-white/60 uppercase">
+                <a href="index.html" class="hover:text-gold-primary transition-colors">Home</a>
+                <span class="mx-2">/</span>
+                <span class="text-gold-primary">About</span>
+            </div>
+        </section>
+
+        <!-- The Founder Section -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal reveal-delay-1">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="relative group tilt-card hover-glow">
+                    <div class="img-placeholder w-full aspect-[3/4] flex items-center justify-center bg-obsidian border border-gold-primary/30 rounded-sm">
+                        <span class="font-playfair text-gold-primary/50 text-xl tracking-widest uppercase text-center px-4">Founder Portrait</span>
+                    </div>
+                    <!-- Decorative border frame -->
+                    <div class="absolute inset-0 border border-gold-primary/20 transform translate-x-4 translate-y-4 -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
+                </div>
+                <div>
+                    <h2 class="font-playfair text-3xl md:text-5xl text-champagne mb-8">Meet Poonam Adivedh</h2>
+                    <div class="space-y-6 font-inter text-white/70 text-lg leading-relaxed font-light">
+                        <p>
+                            Certified by the prestigious Alpha Academy in London, UK, Poonam Adivedh brings an international standard of luxury and precision to every client she serves.
+                        </p>
+                        <p>
+                            Specializing in Bridal Makeup, her vision goes beyond standard beauty treatments. Her philosophy is simple yet profound: <br> <span class="italic text-rosegold font-playfair text-2xl mt-4 block">"Making every bride feel like the world's most beautiful bride."</span>
+                        </p>
+                        <p>
+                            With years of meticulous practice and an unwavering eye for detail, Poonam has cultivated Navrai Beauty Salon into a sanctuary where artistry meets cyber-glam sophistication.
+                        </p>
+                        <div class="pt-8">
+                            <a href="contact.html" class="luxury-btn inline-block px-8 py-3 border border-gold-primary text-gold-primary hover:bg-gold-primary/10 transition-colors uppercase tracking-widest text-sm">
+                                Book a Consultation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values Grid -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-3xl md:text-5xl text-champagne mb-4">Our Core Values</h2>
+                <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold-primary to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Excellence -->
+                <div class="glass-luxury tilt-card hover-glow p-10 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-gold-primary/10 border border-gold-primary/30 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-gold-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-playfair text-2xl text-white mb-4">Excellence</h3>
+                    <p class="font-inter text-white/60 font-light text-sm leading-relaxed">
+                        We deliver nothing short of perfection, blending global techniques with premium products to ensure outstanding results.
+                    </p>
+                </div>
+                
+                <!-- Trust -->
+                <div class="glass-luxury tilt-card hover-glow p-10 flex flex-col items-center text-center reveal-delay-1">
+                    <div class="w-16 h-16 rounded-full bg-rosegold/10 border border-rosegold/30 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-rosegold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-playfair text-2xl text-white mb-4">Trust</h3>
+                    <p class="font-inter text-white/60 font-light text-sm leading-relaxed">
+                        Building enduring relationships through transparency, reliability, and an unwavering commitment to your personal beauty goals.
+                    </p>
+                </div>
+                
+                <!-- Comfort -->
+                <div class="glass-luxury tilt-card hover-glow p-10 flex flex-col items-center text-center reveal-delay-2">
+                    <div class="w-16 h-16 rounded-full bg-champagne/10 border border-champagne/30 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-playfair text-2xl text-white mb-4">Comfort</h3>
+                    <p class="font-inter text-white/60 font-light text-sm leading-relaxed">
+                        An immersive, serene environment where you can unwind, indulge, and experience luxury that caters to your well-being.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety & Standards -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+            <div class="glass-strong p-12 md:p-20 relative overflow-hidden rounded-lg">
+                <!-- Subtle background accent -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gold-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <div>
+                        <h2 class="font-playfair text-3xl md:text-5xl text-champagne mb-6">Uncompromising Standards</h2>
+                        <p class="font-inter text-white/70 font-light text-lg mb-8 leading-relaxed">
+                            Your safety and comfort are paramount. We adhere to the highest protocols of hygiene and quality, ensuring every visit is pristine and luxurious.
+                        </p>
+                        <ul class="space-y-6">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full border border-gold-primary/50 flex items-center justify-center mt-1 mr-4">
+                                    <span class="w-2 h-2 bg-gold-primary rounded-full"></span>
+                                </span>
+                                <div>
+                                    <h4 class="font-playfair text-xl text-white mb-1">Sanitized Tools</h4>
+                                    <p class="font-inter text-white/50 text-sm font-light">Medical-grade sterilization for all implements between clients.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full border border-rosegold/50 flex items-center justify-center mt-1 mr-4">
+                                    <span class="w-2 h-2 bg-rosegold rounded-full"></span>
+                                </span>
+                                <div>
+                                    <h4 class="font-playfair text-xl text-white mb-1">Disposable Products</h4>
+                                    <p class="font-inter text-white/50 text-sm font-light">Single-use applicators and materials for absolute peace of mind.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full border border-champagne/50 flex items-center justify-center mt-1 mr-4">
+                                    <span class="w-2 h-2 bg-champagne rounded-full"></span>
+                                </span>
+                                <div>
+                                    <h4 class="font-playfair text-xl text-white mb-1">Premium Brands</h4>
+                                    <p class="font-inter text-white/50 text-sm font-light">Exclusive use of authentic, top-tier international beauty products.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="relative group tilt-card hover-glow hidden lg:block">
+                        <div class="img-placeholder w-full aspect-square flex items-center justify-center bg-obsidian border border-white/10 rounded-sm">
+                            <span class="font-playfair text-white/30 text-xl tracking-widest uppercase px-4 text-center">Premium Environment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="relative z-10 py-12 border-t border-gold-primary/20 bg-obsidian/80 backdrop-blur-md mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 border border-gold-primary/40 flex items-center justify-center bg-gold-primary/5">
+                    <span class="font-playfair text-gold-primary text-xl italic">N</span>
+                </div>
+                <span class="font-playfair text-sm tracking-widest text-white/60 uppercase">Navrai Beauty Salon</span>
+            </div>
+            <div class="font-inter text-xs tracking-widest text-white/40 uppercase">© 2026 Premium Beauty. Sangli, India.</div>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

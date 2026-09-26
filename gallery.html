@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navrai Beauty Salon | Luxury Redefined</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'playfair': ['"Playfair Display"', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#0a0508',
+                        gold: { primary: '#D4AF37', light: '#F3E5AB', dark: '#996515' },
+                        rosegold: '#B76E79',
+                        champagne: '#F7E7CE'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-obsidian text-[#E8E8E8]">
+    <div class="bg-layer bg-gradient-anim"></div>
+    <div class="bg-layer light-rays"></div>
+    <div class="bg-layer luxury-noise"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="spotlight" id="spotlight"></div>
+    <div id="progress-container"><div id="progress-fill"></div></div>
+    
+    <div class="loading-screen" id="loading-screen">
+        <div class="font-playfair text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosegold via-gold-primary to-champagne tracking-widest mb-8 uppercase text-center">Navrai Luxury</div>
+        <div id="boot-sequence" class="text-left w-full max-w-md mx-auto mb-8 min-h-[120px] flex flex-col justify-end"></div>
+        <div class="loading-bar"><div class="loading-bar-fill" id="loading-bar-fill"></div></div>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 border border-gold-primary/40 flex items-center justify-center bg-gold-primary/5 group-hover:border-gold-primary transition-colors">
+                        <span class="font-playfair text-gold-primary text-xl italic">N</span>
+                    </div>
+                    <span class="font-playfair text-xl tracking-widest text-white hidden sm:block uppercase">Navrai</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-2">
+                    <a href="index.html" class="px-4 py-2 text-sm font-inter text-white/70 hover:text-gold-primary transition-colors uppercase tracking-widest">Home</a>
+                    <a href="about.html" class="px-4 py-2 text-sm font-inter text-white/70 hover:text-gold-primary transition-colors uppercase tracking-widest">About</a>
+                    <a href="services.html" class="px-4 py-2 text-sm font-inter text-white/70 hover:text-gold-primary transition-colors uppercase tracking-widest">Services</a>
+                    <a href="gallery.html" class="px-4 py-2 text-sm font-inter text-gold-primary hover:text-gold-primary transition-colors uppercase tracking-widest">Gallery</a>
+                    <a href="contact.html" class="ml-4 px-6 py-2.5 text-xs font-inter border border-gold-primary/40 text-gold-primary hover:bg-gold-primary/10 transition-all uppercase tracking-widest">Book Now</a>
+                </div>
+                <button class="md:hidden text-white hover:text-gold-primary transition-colors" id="mobile-menu-btn">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="fixed inset-y-0 right-0 w-72 glass-strong z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col" id="mobile-menu">
+        <div class="p-6">
+            <button class="absolute top-6 right-6 text-white/60 hover:text-gold-primary" id="mobile-menu-close">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <div class="mt-20 space-y-6 flex flex-col">
+                <a href="index.html" class="text-xl font-playfair text-white/70 hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">Home</a>
+                <a href="about.html" class="text-xl font-playfair text-white/70 hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">About</a>
+                <a href="services.html" class="text-xl font-playfair text-white/70 hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">Services</a>
+                <a href="gallery.html" class="text-xl font-playfair text-gold-primary uppercase tracking-widest border-b border-gold-primary/20 pb-4">Gallery</a>
+                <a href="contact.html" class="text-xl font-playfair text-white/70 hover:text-gold-primary uppercase tracking-widest border-b border-white/5 pb-4">Book Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSERT YOUR CONTENT HERE -->
+    <main class="relative z-10">
+        
+        <!-- 1. Page Header -->
+        <section class="pt-40 pb-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl md:text-7xl font-playfair text-transparent bg-clip-text bg-gradient-to-r from-rosegold via-gold-primary to-champagne mb-6 reveal">Our Masterpieces</h1>
+                <div class="font-inter text-sm tracking-widest text-white/60 uppercase reveal reveal-delay-1">
+                    <a href="index.html" class="hover:text-gold-primary transition-colors">Home</a> / <span class="text-gold-primary">Gallery</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Filters & 3. Gallery Grid -->
+        <section class="py-12 md:py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Filters -->
+                <div class="flex flex-wrap justify-center gap-4 mb-16 reveal">
+                    <button class="filter-btn px-6 py-2 border border-gold-primary text-gold-primary text-sm font-inter uppercase tracking-widest hover:bg-gold-primary/10 transition-colors">All</button>
+                    <button class="filter-btn px-6 py-2 border border-white/20 text-white/60 text-sm font-inter uppercase tracking-widest hover:border-gold-primary hover:text-gold-primary transition-colors">Bridal</button>
+                    <button class="filter-btn px-6 py-2 border border-white/20 text-white/60 text-sm font-inter uppercase tracking-widest hover:border-gold-primary hover:text-gold-primary transition-colors">Makeup</button>
+                    <button class="filter-btn px-6 py-2 border border-white/20 text-white/60 text-sm font-inter uppercase tracking-widest hover:border-gold-primary hover:text-gold-primary transition-colors">Nails</button>
+                    <button class="filter-btn px-6 py-2 border border-white/20 text-white/60 text-sm font-inter uppercase tracking-widest hover:border-gold-primary hover:text-gold-primary transition-colors">Hair</button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal reveal-delay-1">
+                    
+                    <!-- Item 1: Bridal -->
+                    <div class="gallery-item-wrap group relative overflow-hidden cursor-pointer tilt-card glass-luxury p-2">
+                        <div class="gallery-item relative aspect-[3/4] w-full overflow-hidden">
+                            <div class="img-placeholder w-full h-full flex items-center justify-center bg-obsidian border border-white/5 text-white/30 font-playfair text-xl transition-transform duration-700 group-hover:scale-110">Bridal Portrait</div>
+                            <div class="absolute inset-0 bg-obsidian/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
+                                <h3 class="font-playfair text-2xl text-gold-primary mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Royal Bridal</h3>
+                                <p class="font-inter text-sm text-white/70 tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Bridal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Makeup -->
+                    <div class="gallery-item-wrap group relative overflow-hidden cursor-pointer tilt-card glass-luxury p-2">
+                        <div class="gallery-item relative aspect-[3/4] w-full overflow-hidden">
+                            <div class="img-placeholder w-full h-full flex items-center justify-center bg-obsidian border border-white/5 text-white/30 font-playfair text-xl transition-transform duration-700 group-hover:scale-110">Evening Makeup</div>
+                            <div class="absolute inset-0 bg-obsidian/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
+                                <h3 class="font-playfair text-2xl text-gold-primary mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Evening Glamour</h3>
+                                <p class="font-inter text-sm text-white/70 tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Makeup</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Hair -->
+                    <div class="gallery-item-wrap group relative overflow-hidden cursor-pointer tilt-card glass-luxury p-2">
+                        <div class="gallery-item relative aspect-[3/4] w-full overflow-hidden">
+                            <div class="img-placeholder w-full h-full flex items-center justify-center bg-obsidian border border-white/5 text-white/30 font-playfair text-xl transition-transform duration-700 group-hover:scale-110">Hair Styling</div>
+                            <div class="absolute inset-0 bg-obsidian/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
+                                <h3 class="font-playfair text-2xl text-gold-primary mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Luminous Waves</h3>
+                                <p class="font-inter text-sm text-white/70 tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Hair</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Nails -->
+                    <div class="gallery-item-wrap group relative overflow-hidden cursor-pointer tilt-card glass-luxury p-2">
+                        <div class="gallery-item relative aspect-[3/4] w-full overflow-hidden">
+                            <div class="img-placeholder w-full h-full flex items-center justify-center bg-obsidian border border-white/5 text-white/30 font-playfair text-xl transition-transform duration-700 group-hover:scale-110">Nail Art</div>
+                            <div class="absolute inset-0 bg-obsidian/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
+                                <h3 class="font-playfair text-2xl text-gold-primary mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Golden Accents</h3>
+                                <p class="font-inter text-sm text-white/70 tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Nails</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Bridal -->
+                    <div class="gallery-item-wrap group relative overflow-hidden cursor-pointer tilt-card glass-luxury p-2">
+                        <div class="gallery-item relative aspect-[3/4] w-full overflow-hidden">
+                            <div class="img-placeholder w-full h-full flex items-center justify-center bg-obsidian border border-white/5 text-white/30 font-playfair text-xl transition-transform duration-700 group-hover:scale-110">Reception Look</div>
+                            <div class="absolute inset-0 bg-obsidian/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
+                                <h3 class="font-playfair text-2xl text-gold-primary mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Reception Elegance</h3>
+                                <p class="font-inter text-sm text-white/70 tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Bridal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 6: Makeup -->
+                    <div class="gallery-item-wrap group relative overflow-hidden cursor-pointer tilt-card glass-luxury p-2">
+                        <div class="gallery-item relative aspect-[3/4] w-full overflow-hidden">
+                            <div class="img-placeholder w-full h-full flex items-center justify-center bg-obsidian border border-white/5 text-white/30 font-playfair text-xl transition-transform duration-700 group-hover:scale-110">Subtle Glam</div>
+                            <div class="absolute inset-0 bg-obsidian/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
+                                <h3 class="font-playfair text-2xl text-gold-primary mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Subtle Radiance</h3>
+                                <p class="font-inter text-sm text-white/70 tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Makeup</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Lightbox -->
+        <div class="lightbox fixed inset-0 z-[100] bg-obsidian/95 backdrop-blur-xl hidden flex items-center justify-center opacity-0 transition-opacity duration-300" id="lightbox">
+            <button class="absolute top-8 right-8 text-white/60 hover:text-gold-primary text-4xl transition-colors" id="lightbox-close">&times;</button>
+            <div class="glass-luxury p-2 max-w-[90vw] max-h-[90vh]">
+                <img id="lightbox-img" class="lightbox-img w-full h-full object-contain hidden" src="" alt="Gallery Image">
+                <div class="img-placeholder w-[80vw] max-w-4xl h-[70vh] flex items-center justify-center bg-obsidian border border-white/5 text-white/30 font-playfair text-2xl" id="lightbox-placeholder">Gallery Image Preview</div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 py-12 border-t border-gold-primary/20 bg-obsidian/80 backdrop-blur-md mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 border border-gold-primary/40 flex items-center justify-center bg-gold-primary/5">
+                    <span class="font-playfair text-gold-primary text-xl italic">N</span>
+                </div>
+                <span class="font-playfair text-sm tracking-widest text-white/60 uppercase">Navrai Beauty Salon</span>
+            </div>
+            <div class="font-inter text-xs tracking-widest text-white/40 uppercase">© 2026 Premium Beauty. Sangli, India.</div>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

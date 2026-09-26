@@ -1,0 +1,21 @@
+{
+  "name": "Navrai Beauty Salon",
+  "short_name": "Navrai",
+  "description": "Premium Beauty Services in Sangli - Internationally Certified Makeup Artist",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FEFCFA",
+  "theme_color": "#8C6A5D",
+  "icons": [
+    {
+      "src": "images/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
